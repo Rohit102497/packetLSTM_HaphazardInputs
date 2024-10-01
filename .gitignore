@@ -8,3 +8,4 @@ Datasets/a8a/a8a.txt
 *.gz
 *.data
 *.names
+*.zip
