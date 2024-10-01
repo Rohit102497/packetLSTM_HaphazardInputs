@@ -245,7 +245,23 @@ Code:
 python Code/read_result_transformer.py --dataset magic04 --availprob 0.5 --exp_num 101 --exp_type InputPairs
 ```
 
-### Natural Language 
+### Natural Language
+#### Running Models 
+Config is avaialble at `Code/Config/online_nlp_config.py`. \
+Code to run:
+```
+python Code/run_nlp.py --dataset magic04 --nruns 5 --availprob 0.5 --exp_num_list 101 --syn_data_type variable_p --exp_type OnlyValues --model_type bert
+```
+
+Replace --exp_type to InputPairs for other inputs type option. \
+Replace --model_type to distilbert for other model option.
+
+
+#### Reading Results
+Code:
+```
+python Code/read_result_nlp.py --dataset magic04 --availprob 0.5 --exp_num 101 --exp_type OnlyValues --model_type bert
+```
 
 ### Set Transformer
 
