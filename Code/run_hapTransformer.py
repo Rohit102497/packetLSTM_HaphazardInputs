@@ -13,9 +13,9 @@ import sys
 #------------------Import Code------------------
 from Utils.utils import seed_everything, get_all_metrics
 seed_everything(42)
-from set_transformer_custom_embeddings import set_transformer as set_transformer
+from hapTransformer_custom_embeddings import hapTransformer as hapTransformer
 
-from Config.set_transformer_custom_config import get_config
+from Config.hapTransformer_config import get_config
 from Data_Code.data_load import data_load_synthetic, data_load_real
 
 #--------------------DATA LOADING------------------
@@ -44,10 +44,10 @@ def load_data(data_name, syn_data_type='variable_p', p_available=None, exp_type 
             interval 2 means the next 20% instances and so on.
         '''
         X, Y, X_haphazard, mask = data_load_synthetic(data_name, syn_data_type, p_available, feature_set, interval_set)
-        result_addr = f'{result_addr}/Results/Set_Transformer/{exp_type}/{data_name}/p{str(int(p_available*100))}/Experiment_'
+        result_addr = f'{result_addr}/Results/hapTransformer/{exp_type}/{data_name}/p{str(int(p_available*100))}/Experiment_'
     else:
         X, Y, X_haphazard, mask = data_load_real(data_name)
-        result_addr = f'{result_addr}/Results/Set_Transformer/{exp_type}/{data_name}/Experiment_'
+        result_addr = f'{result_addr}/Results/hapTransformer/{exp_type}/{data_name}/Experiment_'
     
     return X, X_haphazard, Y, mask, result_addr
 
@@ -57,7 +57,7 @@ def run_model(X, X_haphazard,mask,Y,num_runs, result_addr, experiment_no, exp_ty
     params = get_config(args.dataset, experiment_no)
     eval_list = []
     if exp_type == 'Encoder_Ind':
-        model_name = set_transformer
+        model_name = hapTransformer
     print(f"Experiment No:- {experiment_no} \n Params: {params}")
     print(f"Number of runs:-{num_runs}")
     dict_pred = {}

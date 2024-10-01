@@ -22,14 +22,14 @@ def kaiming_init_embedding(size):
 
 
 #Code for Transformer
-class set_transformer(nn.Module):
+class hapTransformer(nn.Module):
     def __init__(self, n_class:int, n_features:int,\
         device='cuda', batch_size:int=1,
         hidden_size:int=512,
         n_heads=4,
         normalization:str='Z_score',
         lr:float=0.0006):
-        super(set_transformer,self).__init__()
+        super(hapTransformer,self).__init__()
         """
         hidden_size- Output vector size of LSTM block
         """

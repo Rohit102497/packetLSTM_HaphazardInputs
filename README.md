@@ -264,5 +264,29 @@ python Code/read_result_nlp.py --dataset magic04 --availprob 0.5 --exp_num 101 -
 ```
 
 ### Set Transformer
+#### Running Models 
+Config is avaialble at `Code/Config/set_transformer_config.py`. \
+Code to run:
+```
+python Code/run_set_transformer.py --dataset magic04 --nruns 5 --availprob 0.5 --exp_num_list 101 --syn_data_type variable_p --exp_type Encoder_Set
+```
+
+#### Reading Results
+Code:
+```
+python Code/read_result_set_transformer.py --dataset magic04 --availprob 0.5 --exp_num 101 --exp_type Encoder_Set
+```
 
 ### HapTransformer
+#### Running Models 
+Config is avaialble at `Code/Config/hapTransformer_config.py`. \
+Code to run:
+```
+python Code/run_hapTransformer.py --dataset magic04 --nruns 5 --availprob 0.5 --exp_num_list 101 --syn_data_type variable_p --exp_type Encoder_Ind
+```
+
+#### Reading Results
+Code:
+```
+python Code/read_result_hapTransformer.py --dataset magic04 --availprob 0.5 --exp_num 101 --exp_type Encoder_Ind
+```

@@ -8,7 +8,7 @@ parser.add_argument('--dataset',default='magic04',choices=['magic04', 'a8a', 'su
 parser.add_argument('--availprob',default='0.5',type=float,help="Value of Probabilty")
 parser.add_argument('--exp_num',default='101',type=int,help='Experiment Number to print')
 parser.add_argument('--exp_type', required=True, type = str, help = 'Type of experiment run',
-                    choices = ['Encoder_Set'])
+                    choices = ['Encoder_Ind'])
 
 args = parser.parse_args()
 
@@ -16,9 +16,9 @@ path = os.path.realpath(__file__)
 result_addr = os.path.dirname(path) 
 
 if args.dataset != 'imdb':
-    result_addr = f'{result_addr}/Results/Set_Transformer/{args.exp_type}/{args.dataset}/p{str(int(args.availprob*100))}/Experiment_{args.exp_num}.data' 
+    result_addr = f'{result_addr}/Results/hapTransformer/{args.exp_type}/{args.dataset}/p{str(int(args.availprob*100))}/Experiment_{args.exp_num}.data' 
 else:
-    result_addr = f'{result_addr}/Results/Set_Transformer/{args.exp_type}/{args.dataset}/Experiment_{args.exp_num}.data'
+    result_addr = f'{result_addr}/Results/hapTransformer/{args.exp_type}/{args.dataset}/Experiment_{args.exp_num}.data'
 
        
 f = open(result_addr,'rb')
