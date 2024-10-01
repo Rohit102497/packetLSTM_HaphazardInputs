@@ -1,0 +1,10 @@
+Datasets/magic04/magic04.data
+Datasets/magic04/magic04.names
+Datasets/SUSY/SUSY_1M.csv.gz
+Datasets/HIGGS/HIGGS_1M.csv.gz
+Datasets/imdb/imdb
+Datasets/a8a/a8a.txt
+*.txt
+*.gz
+*.data
+*.names
