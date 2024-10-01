@@ -83,11 +83,19 @@ python Code/run_model.py --nruns 5 --seed 2024 --dataset susy --syn_data_type re
 ```
 
 #### Dropping Features to Resolve Space Complexity of packetLSTM
-Here, we define the maximum limit on the number of LSTMs and the number of times a feature is seen to 100. 
+Here, we define the maximum limit on the number of LSTMs and the number of times a feature is seen to 100. \
 Code to run:
 ```
 python Code/run_scalability.py --nruns 5 --seed 2024 --dataset imdb --exp_num 101 --feature_limit 100 --min_feature_instances 100
 ```
+
+#### Determining best aggregation operators between Sum and Mean
+Code for Sum:
+```
+python Code/run_model.py --nruns 5 --seed 2024 --dataset a8a --syn_data_type alternating_variable_p --availprob 0 --exp_num 1001
+```
+
+For mean: Change --exp_num to 1002
 
 ### Reading the results
 
