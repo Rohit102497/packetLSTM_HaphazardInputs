@@ -5,8 +5,8 @@ import os
 from Utils.utils import seed_everything, get_all_metrics
 parser = argparse.ArgumentParser()
 
-parser.add_argument('--dataset',default='magic04',choices=['magic04', 'a8a', 'susy', 'higgs', 'imdb'],type=str,help="Name of the dataset")
-parser.add_argument('--availprob',default='0.9',type=float,help="Value of Probabilty")
+parser.add_argument('--dataset',default='a8a',choices=['magic04', 'a8a', 'susy', 'higgs', 'imdb'],type=str,help="Name of the dataset")
+parser.add_argument('--availprob',default='0.0',type=float,help="Value of Probabilty")
 parser.add_argument('--exp_num',default='1001',type=int,help='Experiment Number to print')
 args = parser.parse_args()
 

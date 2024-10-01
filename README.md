@@ -128,6 +128,11 @@ Code to run:
 python Code/read_results_challenging_scenario.py --dataset susy --syn_data_type sudden --nruns 5 --exp_num 201
 ```
 
+#### For reading results of best aggregation operators between Sum and Mean
+Code to run:
+```
+python Code/read_results_agg.py --dataset a8a --availprob 0  --exp_num 1001
+```
 
 ## Running Baselines
 Refer to the `Baselines` Folder.
