@@ -9,3 +9,5 @@ Datasets/a8a/a8a.txt
 *.data
 *.names
 *.zip
+*.csv
+*.png
