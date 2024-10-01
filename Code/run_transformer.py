@@ -14,15 +14,13 @@ import sys
 from Utils.utils import seed_everything, get_all_metrics
 seed_everything(42)
 from transformer_without_imputation import online_transformer as online_transformer_without_imputation
-from transformer_with_imputation import online_transformer as online_transformer_with_imputation
 
 from Config.online_transformer_config import get_config
 from Data_Code.data_load import data_load_synthetic, data_load_real
-from Utils.imputation import *
 from Utils.normalization import normalize_z_score
 
 #--------------------DATA LOADING------------------
-def load_data(data_name, syn_data_type, p_available, exp_type, impute_type = None, feature_set = None, interval_set = None):
+def load_data(data_name, syn_data_type, p_available, exp_type, feature_set = None, interval_set = None):
     if data_name in ["magic04", "a8a", "susy", "higgs"]:
         data_type = "Synthetic"
     else: # ["imdb"]
@@ -46,25 +44,11 @@ def load_data(data_name, syn_data_type, p_available, exp_type, impute_type = Non
             interval 2 means the next 20% instances and so on.
         '''
         X, Y, X_haphazard, mask = data_load_synthetic(data_name, syn_data_type, p_available, feature_set, interval_set)
-        if exp_type == 'Imputation':
-            result_addr = f'{result_addr}/Results/Transformer/{exp_type}/{impute_type}/{data_name}/p{str(int(p_available*100))}/Experiment_'
-        else:
-            result_addr = f'{result_addr}/Results/Transformer/{exp_type}/{data_name}/p{str(int(p_available*100))}/Experiment_' 
+        result_addr = f'{result_addr}/Results/Transformer/{exp_type}/{data_name}/p{str(int(p_available*100))}/Experiment_' 
     else:
         X, Y, X_haphazard, mask = data_load_real(data_name)
-        if exp_type == 'Imputation':
-            result_addr = f'{result_addr}/Results/Transformer/{exp_type}/{impute_type}/{data_name}/Experiment_'
-        else:
-            result_addr = f'{result_addr}/Results/Transformer/{exp_type}/{data_name}/Experiment_'
+        result_addr = f'{result_addr}/Results/Transformer/{exp_type}/{data_name}/Experiment_'
 
-    
-    if exp_type == 'Imputation':
-        impute_dict = {'zero': zero_imputation, 'forward_fill': forward_fill_imputation, 
-                   'forward_mean': forward_mean_imputation, 'knn_mean': knn_mean_imputation,
-                   'g_copula':gaussian_copula_imputation}
-        X_haphazard = normalize_z_score(X_haphazard, mask)
-        impute_model = impute_dict[impute_type]
-        X_haphazard = impute_model(X_haphazard, mask)
     return X, X_haphazard, Y, mask, result_addr
 
 #---------------------Run Model----------------------------------
@@ -72,10 +56,8 @@ def run_model(X, X_haphazard,mask,Y,num_runs, result_addr, experiment_no, exp_ty
     result = {}
     params = get_config(args.dataset, experiment_no)
     eval_list = []
-    if exp_type in ['WithoutImputation', 'InputPairs', 'PaddedInputs']:
+    if exp_type in ['InputPairs', 'PaddedInputs']:
         model_name = online_transformer_without_imputation
-    elif exp_type in ['Imputation']:
-        model_name = online_transformer_with_imputation
     print(f"Experiment No:- {experiment_no} \n Params: {params}")
     print(f"Number of runs:-{num_runs}")
     dict_pred = {}
@@ -121,9 +103,7 @@ if __name__ == "__main__":
     parser.add_argument('--availprob',default=0.5,type=float,help='Set the Probabilty')
     parser.add_argument('--gpu_no', default=0, type=int, help='The number of gpu to use. Default 0')
     parser.add_argument('--exp_type', required=True, type = str, help = 'Type of experiment run',
-                    choices = ['WithoutImputation', 'InputPairs', 'Imputation', 'PaddedInputs'])
-    parser.add_argument('--impute_type', default='zero', type=str, help='The type of imputation to use. Default zero_impute.',
-                        choices=['zero', 'forward_fill', 'forward_mean', 'knn_mean', 'g_copula'])
+                    choices = ['InputPairs', 'PaddedInputs'])
     parser.add_argument('--all_prob', default=False, action=argparse.BooleanOptionalAction, help='True if run on all prob')    
     
     ''' 
@@ -151,6 +131,6 @@ if __name__ == "__main__":
 
     for availprob in prob_list:
         print("probability: ", availprob)    
-        X, X_haphazard, Y, mask,result_addr = load_data(args.dataset, args.syn_data_type, availprob, args.exp_type, args.impute_type)
+        X, X_haphazard, Y, mask,result_addr = load_data(args.dataset, args.syn_data_type, availprob, args.exp_type)
         for exp_num in args.exp_num_list:
             result = run_model(X, X_haphazard, mask, Y, args.nruns, result_addr, exp_num, args.exp_type)

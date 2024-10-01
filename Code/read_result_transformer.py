@@ -8,29 +8,16 @@ parser.add_argument('--dataset',default='magic04',choices=['magic04', 'a8a', 'su
 parser.add_argument('--availprob',default='0.75',type=float,help="Value of Probabilty")
 parser.add_argument('--exp_num',default='101',type=int,help='Experiment Number to print')
 parser.add_argument('--exp_type', required=True, type = str, help = 'Type of experiment run',
-                    choices = ['WithoutImputation', 'InputPairs', 'Imputation', "PaddedInputs"])
-parser.add_argument('--impute_type', default='zero', type=str, help='The type of imputation to use. Default zero_impute.',
-                        choices=['zero', 'forward_fill', 'forward_mean', 'knn_mean', 'g_copula'])
+                    choices = ['InputPairs', "PaddedInputs"])
 args = parser.parse_args()
 
 path = os.path.realpath(__file__) 
 result_addr = os.path.dirname(path) 
 
 if args.dataset != 'imdb':
-    if args.exp_type == 'Imputation':
-        result_addr = f'{result_addr}/Results/Transformer/{args.exp_type}/{args.impute_type}/{args.dataset}/p{str(int(args.availprob*100))}/Experiment_{args.exp_num}.data'
-    else:
-        result_addr = f'{result_addr}/Results/Transformer/{args.exp_type}/{args.dataset}/p{str(int(args.availprob*100))}/Experiment_{args.exp_num}.data' 
+    result_addr = f'{result_addr}/Results/Transformer/{args.exp_type}/{args.dataset}/p{str(int(args.availprob*100))}/Experiment_{args.exp_num}.data' 
 else:
-    if args.exp_type == 'Imputation':
-        result_addr = f'{result_addr}/Results/Transformer/{args.exp_type}/{args.impute_type}/{args.dataset}/Experiment_{args.exp_num}.data'
-    else:
-        result_addr = f'{result_addr}/Results/Transformer/{args.exp_type}/{args.dataset}/Experiment_{args.exp_num}.data'
-
-# if args.dataset == 'imdb':
-#     file_path = f'{result_addr}/Results/Transformer/{args.exp_type}/{args.dataset}/Experiment_{args.exp_num}.data'
-# else:
-#     file_path = f'{result_addr}/Results/Transformer/{args.exp_type}/{args.dataset}/p{int(100*args.availprob)}/Experiment_{args.exp_num}.data'
+    result_addr = f'{result_addr}/Results/Transformer/{args.exp_type}/{args.dataset}/Experiment_{args.exp_num}.data'
         
 f = open(result_addr,'rb')
 o = pkl.load(f)

@@ -227,3 +227,26 @@ python Code/read_results_single_lstm.py --dataset magic04 --availprob 0.75 --exp
 ```
 
 ## Running Transformer
+
+### Padding
+
+#### Running Models
+Config is avaialble at `Code/Config/online_transformer_config.py`. \
+Code to run:
+```
+python Code/run_transformer.py --dataset magic04 --nruns 5 --availprob 0.5 --exp_num_list 101 --syn_data_type variable_p --exp_type InputPairs
+```
+
+Replace --exp_type to PaddedInputs for the other padding option.
+
+#### Reading Results
+Code:
+```
+python Code/read_result_transformer.py --dataset magic04 --availprob 0.5 --exp_num 101 --exp_type InputPairs
+```
+
+### Natural Language 
+
+### Set Transformer
+
+### HapTransformer
